@@ -1,16 +1,27 @@
 package com.natashaval.udemyandroidtdd.unittests
 
+import com.example.outsideintddexample.acceptancetests.MainCoroutineScopeRule
 import junit.framework.Assert.assertEquals
+import junit.framework.Assert.assertTrue
+import kotlinx.coroutines.test.runTest
+import org.junit.Rule
 import org.junit.Test
 
 class EngineShould {
 
   private val engine = Engine(15, false)
+  @get:Rule
+  var coroutineScopeRule = MainCoroutineScopeRule()
 
   @Test
-  fun engineTurnsOn() {
+  fun turnOn() = runTest {
     engine.turnOn()
-    assertEquals(true, engine.isTurnedOn)
+    assertTrue(engine.isTurnedOn)
+  }
+
+  @Test
+  fun riseTheTemperatureWhenItTurnsOn() = runTest {
+    engine.turnOn()
     assertEquals(95, engine.temperature)
   }
 
