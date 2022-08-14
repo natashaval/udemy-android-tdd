@@ -1,7 +1,9 @@
 package com.natashaval.udemyandroidtdd.groovy.playlist
 
+import kotlinx.coroutines.flow.Flow
+
 class PlaylistService {
-  fun fetchPlaylists() {
+  suspend fun fetchPlaylists(): Flow<Result<List<Playlist>>> {
     TODO("Not yet implemented")
   }
 
