@@ -5,6 +5,7 @@ import com.natashaval.udemyandroidtdd.groovy.playlist.PlaylistApi
 import com.natashaval.udemyandroidtdd.groovy.playlist.PlaylistService
 import com.natashaval.udemyandroidtdd.utils.BaseUnitTest
 import junit.framework.Assert.assertEquals
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.mockito.kotlin.mock
@@ -21,21 +22,30 @@ class PlayServiceShould : BaseUnitTest() {
   @Test
   fun fetchPlaylistsFromApi() = runTest {
     service = PlaylistService(playlistApi)
-    service.fetchPlaylists()
+    service.fetchPlaylists().first()
     verify(playlistApi, times(1)).fetchAllPlaylists()
   }
 
   @Test
   fun convertValuesToFlowResultAndEmitsThem() = runTest {
+    mockSuccessfulCase()
+    assertEquals(Result.success(playlists), service.fetchPlaylists().first())
+  }
+
+  private suspend fun mockSuccessfulCase() {
     whenever(playlistApi.fetchAllPlaylists()).thenReturn(playlists)
-    val service = PlaylistService(playlistApi)
-    assertEquals(Result.success(playlists), service.fetchPlaylists())
+    service = PlaylistService(playlistApi)
   }
 
   @Test
   fun emitsErrorResultWhenNetworkFails() = runTest {
-    whenever(playlistApi.fetchAllPlaylists()).thenReturn(playlists)
-    val service = PlaylistService(playlistApi)
-    assertEquals(Result.failure<List<Playlist>>(exception), service.fetchPlaylists())
+    mockFailureCase()
+    //    assertEquals(Result.failure<List<Playlist>>(exception), service.fetchPlaylists().first())
+    assertEquals("Something went wrong", service.fetchPlaylists().first().exceptionOrNull()?.message)
+  }
+
+  private suspend fun mockFailureCase() {
+    whenever(playlistApi.fetchAllPlaylists()).thenThrow(RuntimeException("Damn backend developers"))
+    service = PlaylistService(playlistApi)
   }
 }
