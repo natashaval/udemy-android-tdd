@@ -1,13 +1,21 @@
 package com.natashaval.udemyandroidtdd.groovy
 
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.adevinta.android.barista.assertion.BaristaRecyclerViewAssertions.assertRecyclerViewItemCount
 import com.adevinta.android.barista.assertion.BaristaVisibilityAssertions.assertDisplayed
+import com.adevinta.android.barista.internal.matcher.DrawableMatcher.Companion.withDrawable
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import com.natashaval.udemyandroidtdd.R
+import com.natashaval.udemyandroidtdd.utils.MatcherUtils
+import java.util.EnumSet.allOf
 
 @RunWith(AndroidJUnit4::class)
 class PlaylistFeature {
@@ -26,5 +34,31 @@ class PlaylistFeature {
   @Test
   fun displayScreenTitle() {
     assertDisplayed("Playlists")
+  }
+
+  @Test
+  fun displayListOfPlaylists() {
+    assertRecyclerViewItemCount(R.id.playlists_list, 10)
+
+    onView(
+      allOf(
+        withId(R.id.playlist_name),
+        isDescendantOfA(MatcherUtils.nthChildOf(withId(R.id.playliists_list), 0))
+      )
+    ).check(matches(withText("Hard Rock Cafe"))).check(matches(isDisplayed()))
+
+    onView(
+      allOf(
+        withId(R.id.playlist_category),
+        isDescendantOfA(MatcherUtils.nthChildOf(withId(R.id.playliists_list), 0))
+      )
+    ).check(matches(withText("rock"))).check(matches(isDisplayed()))
+
+    onView(
+      allOf(
+        withId(R.id.playlist_image),
+        isDescendantOfA(MatcherUtils.nthChildOf(withId(R.id.playliists_list), 0))
+      )
+    ).check(matches(withDrawable(R.mipmap.playlist))).check(matches(isDisplayed()))
   }
 }

@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".groovy.GroovyActivity">
+    tools:context=".groovy.GroovyActivity"
+    android:id="@+id/container"
+    >
 
 </androidx.constraintlayout.widget.ConstraintLayout>
