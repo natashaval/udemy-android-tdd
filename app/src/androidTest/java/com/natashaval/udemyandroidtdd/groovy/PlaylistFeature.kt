@@ -15,7 +15,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import com.natashaval.udemyandroidtdd.R
 import com.natashaval.udemyandroidtdd.utils.MatcherUtils
-import java.util.EnumSet.allOf
+import org.hamcrest.CoreMatchers.allOf
 
 @RunWith(AndroidJUnit4::class)
 class PlaylistFeature {
@@ -38,26 +38,28 @@ class PlaylistFeature {
 
   @Test
   fun displayListOfPlaylists() {
+    Thread.sleep(4000)
+
     assertRecyclerViewItemCount(R.id.playlists_list, 10)
 
     onView(
       allOf(
         withId(R.id.playlist_name),
-        isDescendantOfA(MatcherUtils.nthChildOf(withId(R.id.playliists_list), 0))
+        isDescendantOfA(MatcherUtils.nthChildOf(withId(R.id.playlists_list), 0))
       )
     ).check(matches(withText("Hard Rock Cafe"))).check(matches(isDisplayed()))
 
     onView(
       allOf(
         withId(R.id.playlist_category),
-        isDescendantOfA(MatcherUtils.nthChildOf(withId(R.id.playliists_list), 0))
+        isDescendantOfA(MatcherUtils.nthChildOf(withId(R.id.playlists_list), 0))
       )
     ).check(matches(withText("rock"))).check(matches(isDisplayed()))
 
     onView(
       allOf(
         withId(R.id.playlist_image),
-        isDescendantOfA(MatcherUtils.nthChildOf(withId(R.id.playliists_list), 0))
+        isDescendantOfA(MatcherUtils.nthChildOf(withId(R.id.playlists_list), 0))
       )
     ).check(matches(withDrawable(R.mipmap.playlist))).check(matches(isDisplayed()))
   }

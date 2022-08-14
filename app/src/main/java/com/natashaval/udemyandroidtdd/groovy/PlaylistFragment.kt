@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModelProvider
 import com.natashaval.udemyandroidtdd.R
 
 class PlaylistFragment : Fragment() {
@@ -21,13 +22,31 @@ class PlaylistFragment : Fragment() {
   ): View? {
     val view = inflater.inflate(R.layout.fragment_playlist, container, false)
 
+    setupViewModel()
+
     viewModel.playlists.observe(this as LifecycleOwner) { playlists ->
-      with(view as RecyclerView) {
-        layoutManager = LinearLayoutManager(context)
-        adapter = MyPlaylistRecyclerViewAdapter(playlists)
+      if (playlists.getOrNull() != null) {
+        setupList(view, playlists.getOrNull()!!)
+      } else {
+        // TODO
       }
     }
     return view
+  }
+
+  private fun setupList(
+    view: View?,
+    playlists: List<Playlist>
+  ) {
+    with(view as RecyclerView) {
+      layoutManager = LinearLayoutManager(context)
+      adapter = MyPlaylistRecyclerViewAdapter(playlists)
+    }
+  }
+
+  private fun setupViewModel() {
+    viewModelFactory = PlaylistViewModelFactory()
+    viewModel = ViewModelProvider(this, viewModelFactory).get(PlaylistViewModel::class.java)
   }
 
   companion object {
