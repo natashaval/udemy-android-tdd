@@ -1,4 +1,4 @@
-package com.natashaval.udemyandroidtdd.groovy
+package com.natashaval.udemyandroidtdd.groovy.playlist
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

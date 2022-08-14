@@ -1,4 +1,4 @@
-package com.natashaval.udemyandroidtdd.groovy
+package com.natashaval.udemyandroidtdd.groovy.playlist
 
 import com.natashaval.udemyandroidtdd.R
 

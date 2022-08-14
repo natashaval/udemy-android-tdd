@@ -1,55 +1,29 @@
 package com.natashaval.udemyandroidtdd.groovy
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.natashaval.udemyandroidtdd.utils.MainCoroutineScopeRule
+import com.natashaval.udemyandroidtdd.groovy.playlist.Playlist
+import com.natashaval.udemyandroidtdd.groovy.playlist.PlaylistRepository
+import com.natashaval.udemyandroidtdd.groovy.playlist.PlaylistViewModel
+import com.natashaval.udemyandroidtdd.utils.BaseUnitTest
 import com.natashaval.udemyandroidtdd.utils.getValueForTest
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
-import org.junit.Rule
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
-class PlaylistViewModelShould {
+class PlaylistViewModelShould : BaseUnitTest() {
 
-  @get:Rule
-  var corotuinesTestRule = MainCoroutineScopeRule()
-
-  @get:Rule
-  val instantTaskExecutorRule = InstantTaskExecutorRule()
-
-//  private val viewModel: PlaylistViewModel
   private val repository: PlaylistRepository = mock()
   private val playlists = mock<List<Playlist>>()
   private val expected = Result.success(playlists)
 
-  init {
-//    runBlocking {
-//      whenever(repository.getPlaylists()).thenReturn(
-//        flow {
-//          emit(expected)
-//        }
-//      )
-//    }
-//
-//    viewModel = PlaylistViewModel(repository)
-  }
-
   @Test
   fun getPlaylistsFromRepository() = runTest {
-    runBlocking {
-      whenever(repository.getPlaylists()).thenReturn(
-        flow {
-          emit(expected)
-        }
-      )
-    }
-
-    val viewModel = PlaylistViewModel(repository)
+    val viewModel = mockSuccessfulCase()
 
     viewModel.playlists.getValueForTest()
 
@@ -58,6 +32,12 @@ class PlaylistViewModelShould {
 
   @Test
   fun emitsPlaylistsFromRepository() = runTest {
+    val viewModel = mockSuccessfulCase()
+
+    assertEquals(expected, viewModel.playlists.getValueForTest())
+  }
+
+  private fun mockSuccessfulCase(): PlaylistViewModel {
     runBlocking {
       whenever(repository.getPlaylists()).thenReturn(
         flow {
@@ -66,8 +46,6 @@ class PlaylistViewModelShould {
       )
     }
 
-    val viewModel = PlaylistViewModel(repository)
-
-    assertEquals(expected, viewModel.playlists.getValueForTest())
+    return PlaylistViewModel(repository)
   }
 }
