@@ -17,11 +17,11 @@ class PlaylistViewModelShould {
   @get:Rule
   val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-  val viewModel: PlaylistViewModel
-  val repository: PlaylistRepository = mock()
+  private val viewModel: PlaylistViewModel
+  private val repository: PlaylistRepository = mock()
 
   init {
-    viewModel = PlaylistViewModel()
+    viewModel = PlaylistViewModel(repository)
 
   }
 
