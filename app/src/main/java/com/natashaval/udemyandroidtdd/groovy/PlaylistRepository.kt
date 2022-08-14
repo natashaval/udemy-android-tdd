@@ -1,7 +1,9 @@
 package com.natashaval.udemyandroidtdd.groovy
 
-class PlaylistRepository {
-  fun getPlaylists() {
+import kotlinx.coroutines.flow.Flow
 
+class PlaylistRepository {
+  suspend fun getPlaylists(): Flow<Result<List<Playlist>>> {
+    TODO()
   }
 }
