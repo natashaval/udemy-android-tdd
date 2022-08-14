@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.outsideintddexample.acceptancetests
+package com.natashaval.udemyandroidtdd.utils
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

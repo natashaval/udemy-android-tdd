@@ -1,6 +1,6 @@
 package com.natashaval.udemyandroidtdd.unittests
 
-import com.example.outsideintddexample.acceptancetests.MainCoroutineScopeRule
+import com.natashaval.udemyandroidtdd.utils.MainCoroutineScopeRule
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow

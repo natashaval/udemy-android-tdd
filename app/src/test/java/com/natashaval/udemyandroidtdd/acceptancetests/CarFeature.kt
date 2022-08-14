@@ -1,6 +1,6 @@
 package com.natashaval.udemyandroidtdd.acceptancetests
 
-import com.example.outsideintddexample.acceptancetests.MainCoroutineScopeRule
+import com.natashaval.udemyandroidtdd.utils.MainCoroutineScopeRule
 import com.natashaval.udemyandroidtdd.unittests.Car
 import com.natashaval.udemyandroidtdd.unittests.Engine
 import junit.framework.Assert.assertEquals
