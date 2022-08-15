@@ -11,10 +11,12 @@ import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import com.natashaval.udemyandroidtdd.R
+import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+@AndroidEntryPoint
 class PlaylistFragment : Fragment() {
 
   lateinit var viewModel: PlaylistViewModel

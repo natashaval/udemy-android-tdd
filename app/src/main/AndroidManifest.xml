@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UdemyAndroidTdd"
         tools:targetApi="31"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:name=".GroovyApplication">
         <activity
             android:name=".groovy.GroovyActivity"
             android:exported="true"
