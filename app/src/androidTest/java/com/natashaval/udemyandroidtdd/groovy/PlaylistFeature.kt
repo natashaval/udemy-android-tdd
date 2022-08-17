@@ -1,6 +1,7 @@
 package com.natashaval.udemyandroidtdd.groovy
 
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
@@ -15,11 +16,12 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import com.natashaval.udemyandroidtdd.R
+import com.natashaval.udemyandroidtdd.groovy.playlist.idlingResource
 import com.natashaval.udemyandroidtdd.utils.MatcherUtils
 import org.hamcrest.CoreMatchers.allOf
 
 @RunWith(AndroidJUnit4::class)
-class PlaylistFeature {
+class PlaylistFeature : BaseUiTest() {
 
 //  val activityRule = ActivityTestRule(GroovyActivity::class.java) is deprecated
   val activityRule = ActivityScenarioRule(GroovyActivity::class.java)
@@ -39,7 +41,7 @@ class PlaylistFeature {
 
   @Test
   fun displayListOfPlaylists() {
-    Thread.sleep(4000)
+//    Thread.sleep(4000)
 
     assertRecyclerViewItemCount(R.id.playlists_list, 10)
 
@@ -67,19 +69,20 @@ class PlaylistFeature {
 
   @Test
   fun displayLoaderWhileFetchingThePlaylists() {
+    IdlingRegistry.getInstance().unregister(idlingResource)
     assertDisplayed(R.id.loader)
   }
 
   @Test
   fun hidesLoader() {
-    Thread.sleep(4000)
+//    Thread.sleep(4000)
 
     assertNotDisplayed(R.id.loader)
   }
 
   @Test
   fun displaysRockImageForRockListItems() {
-    Thread.sleep(4000)
+//    Thread.sleep(4000)
 
     onView(
       allOf(
@@ -91,7 +94,7 @@ class PlaylistFeature {
     onView(
       allOf(
         withId(R.id.playlist_image),
-        isDescendantOfA(MatcherUtils.nthChildOf(withId(R.id.playlists_list), 1))
+        isDescendantOfA(MatcherUtils.nthChildOf(withId(R.id.playlists_list), 3))
       )
     ).check(matches(withDrawable(R.mipmap.rock))).check(matches(isDisplayed()))
   }
