@@ -2,6 +2,7 @@ package com.natashaval.udemyandroidtdd.groovy
 
 import com.natashaval.udemyandroidtdd.groovy.playlist.Playlist
 import com.natashaval.udemyandroidtdd.groovy.playlist.PlaylistApi
+import com.natashaval.udemyandroidtdd.groovy.playlist.PlaylistRaw
 import com.natashaval.udemyandroidtdd.groovy.playlist.PlaylistService
 import com.natashaval.udemyandroidtdd.utils.BaseUnitTest
 import junit.framework.Assert.assertEquals
@@ -16,7 +17,7 @@ import org.mockito.kotlin.whenever
 class PlayServiceShould : BaseUnitTest() {
   private lateinit var service: PlaylistService
   private val playlistApi: PlaylistApi = mock()
-  private val playlists = mock<List<Playlist>>()
+  private val playlists = mock<List<PlaylistRaw>>()
   private val exception = RuntimeException("Something went wrong")
 
   @Test
