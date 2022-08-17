@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import com.natashaval.udemyandroidtdd.R
+import com.natashaval.udemyandroidtdd.databinding.FragmentPlaylistBinding
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -23,13 +24,15 @@ class PlaylistFragment : Fragment() {
   lateinit var viewModel: PlaylistViewModel
   @Inject
   lateinit var viewModelFactory: PlaylistViewModelFactory
+  private var _binding: FragmentPlaylistBinding? = null
+  private val binding get() = _binding!!
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    val view = inflater.inflate(R.layout.fragment_playlist, container, false)
-    return view
+    _binding = FragmentPlaylistBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,9 +40,16 @@ class PlaylistFragment : Fragment() {
 
     setupViewModel()
 
+    viewModel.loader.observe(this as LifecycleOwner) { loading ->
+      when(loading) {
+        true -> binding.loader.visibility = View.VISIBLE
+        else -> binding.loader.visibility = View.GONE
+      }
+    }
+
     viewModel.playlists.observe(this as LifecycleOwner) { playlists ->
       if (playlists.isSuccess && playlists.getOrNull() != null) {
-        setupList(view, playlists.getOrNull()!!)
+        setupList(binding.playlistsList, playlists.getOrNull()!!)
       } else {
         Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT)
       }
@@ -66,5 +76,10 @@ class PlaylistFragment : Fragment() {
       PlaylistFragment().apply {
         arguments = Bundle().apply {}
       }
+  }
+
+  override fun onDestroyView() {
+    super.onDestroyView()
+    _binding = null
   }
 }
