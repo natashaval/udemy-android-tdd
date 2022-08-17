@@ -6,10 +6,10 @@ import com.natashaval.udemyandroidtdd.groovy.playlist.PlaylistViewModel
 import com.natashaval.udemyandroidtdd.utils.BaseUnitTest
 import com.natashaval.udemyandroidtdd.utils.captureValues
 import com.natashaval.udemyandroidtdd.utils.getValueForTest
-import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.times

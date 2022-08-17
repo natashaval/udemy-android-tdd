@@ -1,13 +1,12 @@
 package com.natashaval.udemyandroidtdd.groovy
 
-import com.natashaval.udemyandroidtdd.groovy.playlist.Playlist
 import com.natashaval.udemyandroidtdd.groovy.playlist.PlaylistApi
 import com.natashaval.udemyandroidtdd.groovy.playlist.PlaylistRaw
 import com.natashaval.udemyandroidtdd.groovy.playlist.PlaylistService
 import com.natashaval.udemyandroidtdd.utils.BaseUnitTest
-import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.times
