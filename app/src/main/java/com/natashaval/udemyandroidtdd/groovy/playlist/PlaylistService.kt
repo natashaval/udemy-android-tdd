@@ -12,7 +12,6 @@ class PlaylistService @Inject constructor(
 ) {
   suspend fun fetchPlaylists(): Flow<Result<List<PlaylistRaw>>> {
     try {
-      playlistApi.fetchAllPlaylists()
       return flow { emit(Result.success(playlistApi.fetchAllPlaylists())) }
     } catch (ex: Exception) {
       Log.e("COURSE", ex.message.toString())

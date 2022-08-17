@@ -2,13 +2,16 @@ package com.natashaval.udemyandroidtdd.groovy.details
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import javax.inject.Inject
 
-class PlaylistDetailsViewModel : ViewModel() {
+class PlaylistDetailsViewModel @Inject constructor(
+  private val service: PlaylistDetailsService
+) : ViewModel() {
 
   val playlistDetails: MutableLiveData<PlaylistDetails> = MutableLiveData()
 
   fun getPlaylistDetails(id: String) {
-    TODO("Not yet implemented")
+    service.fetchPlaylistDetails(id)
   }
 
 }
