@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.natashaval.udemyandroidtdd.R
 import com.natashaval.udemyandroidtdd.databinding.FragmentPlaylistBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -62,7 +63,10 @@ class PlaylistFragment : Fragment() {
   ) {
     with(view as RecyclerView) {
       layoutManager = LinearLayoutManager(context)
-      adapter = MyPlaylistRecyclerViewAdapter(playlists)
+      adapter = MyPlaylistRecyclerViewAdapter(playlists) { id ->
+        val action = PlaylistFragmentDirections.actionPlaylistFragmentToPlaylistDetailFragment(id)
+        findNavController().navigate(action)
+      }
     }
   }
 
