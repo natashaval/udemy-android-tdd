@@ -24,10 +24,6 @@ import org.hamcrest.CoreMatchers.allOf
 @RunWith(AndroidJUnit4::class)
 class PlaylistFeature : BaseUiTest() {
 
-//  val activityRule = ActivityTestRule(GroovyActivity::class.java) is deprecated
-  val activityRule = ActivityScenarioRule(GroovyActivity::class.java)
-    @Rule get
-
   @Test
   fun useAppContext() {
     // Context of the app under test.
