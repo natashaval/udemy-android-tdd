@@ -1,34 +1,64 @@
 package com.natashaval.udemyandroidtdd.groovy.details
 
+import com.natashaval.udemyandroidtdd.utils.BaseUnitTest
 import com.natashaval.udemyandroidtdd.utils.getValueForTest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.kotlin.*
 
-class PlaylistDetailsViewModelShould {
+class PlaylistDetailsViewModelShould : BaseUnitTest() {
 
+  lateinit var viewModel: PlaylistDetailsViewModel
+  private val id = "1"
   private val service: PlaylistDetailsService = mock()
   private val playlistDetails: PlaylistDetails = mock()
+  private val expected = Result.success(playlistDetails)
+  private val exception = RuntimeException("Something went wrong")
+  private val error = Result.failure<PlaylistDetails>(exception)
 
   @Test
   fun getPlaylistDetailsFromService() = runTest {
-    val viewModel = mockSuccessfulCase()
+    mockSuccessfulCase()
     viewModel.playlistDetails.getValueForTest()
 
     verify(service, times(1)).fetchPlaylistDetails(any())
   }
 
-  private fun mockSuccessfulCase(): PlaylistDetailsViewModel {
+  @Test
+  fun emitPlaylistDetailsFromService() = runTest {
+    mockSuccessfulCase()
+    assertEquals(expected, viewModel.playlistDetails.getValueForTest())
+  }
+
+  @Test
+  fun emitErrorWhenServiceFails() = runTest {
+    mockErrorCase()
+    assertEquals(error, viewModel.playlistDetails.getValueForTest())
+  }
+
+  private suspend fun mockErrorCase() {
+    whenever(service.fetchPlaylistDetails(id)).thenReturn(
+      flow {
+        emit(error)
+      }
+    )
+    viewModel = PlaylistDetailsViewModel(service)
+    viewModel.getPlaylistDetails(id)
+  }
+
+  private fun mockSuccessfulCase() {
     runBlocking {
       whenever(service.fetchPlaylistDetails(any())).thenReturn(
         flow {
-          emit(playlistDetails)
+          emit(expected)
         }
       )
     }
 
-    return PlaylistDetailsViewModel(service)
+    viewModel = PlaylistDetailsViewModel(service)
+    viewModel.getPlaylistDetails(id)
   }
 }

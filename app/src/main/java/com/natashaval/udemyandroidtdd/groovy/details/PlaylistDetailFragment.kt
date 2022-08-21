@@ -49,7 +49,7 @@ class PlaylistDetailFragment : Fragment() {
 
   private fun observeLiveData() {
     viewModel.playlistDetails.observe(this as LifecycleOwner) { playlistDetails ->
-      setupUi(playlistDetails)
+      setupUi(playlistDetails.getOrNull())
     }
   }
 
