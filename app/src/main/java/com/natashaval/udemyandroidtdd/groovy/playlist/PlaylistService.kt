@@ -11,11 +11,9 @@ class PlaylistService @Inject constructor(
   private val playlistApi: PlaylistApi
 ) {
   suspend fun fetchPlaylists(): Flow<Result<List<PlaylistRaw>>> {
-    try {
-      return flow { emit(Result.success(playlistApi.fetchAllPlaylists())) }
-    } catch (ex: Exception) {
-      Log.e("COURSE", ex.message.toString())
-      return flow { emit(Result.failure(RuntimeException("Something went wrong"))) }
-    }
+    return flow { emit(Result.success(playlistApi.fetchAllPlaylists())) }
+      .catch {
+        emit(Result.failure(RuntimeException("Something went wrong")))
+      }
   }
 }

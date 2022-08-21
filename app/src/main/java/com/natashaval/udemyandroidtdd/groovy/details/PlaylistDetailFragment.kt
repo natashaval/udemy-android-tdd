@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
 import com.natashaval.udemyandroidtdd.PlaylistDetailFragmentArgs
+import com.natashaval.udemyandroidtdd.R
 import com.natashaval.udemyandroidtdd.databinding.FragmentPlaylistDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -50,7 +52,11 @@ class PlaylistDetailFragment : Fragment() {
 
   private fun observeLiveData() {
     viewModel.playlistDetails.observe(this as LifecycleOwner) { playlistDetails ->
-      setupUi(playlistDetails.getOrNull())
+      if (playlistDetails.getOrNull() != null) {
+        setupUi(playlistDetails)
+      } else {
+        Snackbar.make(binding.root, R.string.generic_error, Snackbar.LENGTH_LONG).show()
+      }
     }
   }
 
@@ -58,8 +64,8 @@ class PlaylistDetailFragment : Fragment() {
     viewModel = ViewModelProvider(this, viewModelFactory).get(PlaylistDetailsViewModel::class.java)
   }
 
-  private fun setupUi(playlistDetails: PlaylistDetails?) {
-    playlistDetails?.let {
+  private fun setupUi(playlistDetails: Result<PlaylistDetails>) {
+    playlistDetails.getOrNull()?.let {
       binding.playlistName.text = it.name
       binding.playlistDetails.text = it.details
     }

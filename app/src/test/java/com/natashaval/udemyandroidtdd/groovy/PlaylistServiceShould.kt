@@ -13,7 +13,7 @@ import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
-class PlayServiceShould : BaseUnitTest() {
+class PlaylistServiceShould : BaseUnitTest() {
   private lateinit var service: PlaylistService
   private val playlistApi: PlaylistApi = mock()
   private val playlists = mock<List<PlaylistRaw>>()
@@ -41,11 +41,11 @@ class PlayServiceShould : BaseUnitTest() {
   fun emitsErrorResultWhenNetworkFails() = runTest {
     mockFailureCase()
     //    assertEquals(Result.failure<List<Playlist>>(exception), service.fetchPlaylists().first())
-    assertEquals("Something went wrong", service.fetchPlaylists().first().exceptionOrNull()?.message)
+    assertEquals(exception.message, service.fetchPlaylists().first().exceptionOrNull()?.message)
   }
 
   private suspend fun mockFailureCase() {
-    whenever(playlistApi.fetchAllPlaylists()).thenThrow(RuntimeException("Damn backend developers"))
+    whenever(playlistApi.fetchAllPlaylists()).thenThrow(exception)
     service = PlaylistService(playlistApi)
   }
 }
