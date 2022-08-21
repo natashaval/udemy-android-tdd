@@ -1,6 +1,7 @@
 package com.natashaval.udemyandroidtdd.groovy.details
 
 import com.natashaval.udemyandroidtdd.utils.BaseUnitTest
+import com.natashaval.udemyandroidtdd.utils.captureValues
 import com.natashaval.udemyandroidtdd.utils.getValueForTest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
@@ -11,7 +12,7 @@ import org.mockito.kotlin.*
 
 class PlaylistDetailsViewModelShould : BaseUnitTest() {
 
-  lateinit var viewModel: PlaylistDetailsViewModel
+  private lateinit var viewModel: PlaylistDetailsViewModel
   private val id = "1"
   private val service: PlaylistDetailsService = mock()
   private val playlistDetails: PlaylistDetails = mock()
@@ -22,6 +23,8 @@ class PlaylistDetailsViewModelShould : BaseUnitTest() {
   @Test
   fun getPlaylistDetailsFromService() = runTest {
     mockSuccessfulCase()
+    viewModel.getPlaylistDetails(id)
+
     viewModel.playlistDetails.getValueForTest()
 
     verify(service, times(1)).fetchPlaylistDetails(any())
@@ -30,13 +33,41 @@ class PlaylistDetailsViewModelShould : BaseUnitTest() {
   @Test
   fun emitPlaylistDetailsFromService() = runTest {
     mockSuccessfulCase()
+    viewModel.getPlaylistDetails(id)
+
     assertEquals(expected, viewModel.playlistDetails.getValueForTest())
   }
 
   @Test
   fun emitErrorWhenServiceFails() = runTest {
     mockErrorCase()
+    viewModel.getPlaylistDetails(id)
+
     assertEquals(error, viewModel.playlistDetails.getValueForTest())
+  }
+
+  @Test
+  fun showSpinnerWhileLoading() = runTest {
+    mockSuccessfulCase()
+
+    viewModel.loader.captureValues {
+      viewModel.getPlaylistDetails(id)
+      viewModel.playlistDetails.getValueForTest()
+
+      assertEquals(true, values.first())
+    }
+  }
+
+  @Test
+  fun closeLoaderAfterPlaylistDetailsLoad() = runTest {
+    mockSuccessfulCase()
+
+    viewModel.loader.captureValues {
+      viewModel.getPlaylistDetails(id)
+      viewModel.playlistDetails.getValueForTest()
+
+      assertEquals(false, values.last())
+    }
   }
 
   private suspend fun mockErrorCase() {
@@ -59,6 +90,5 @@ class PlaylistDetailsViewModelShould : BaseUnitTest() {
     }
 
     viewModel = PlaylistDetailsViewModel(service)
-    viewModel.getPlaylistDetails(id)
   }
 }

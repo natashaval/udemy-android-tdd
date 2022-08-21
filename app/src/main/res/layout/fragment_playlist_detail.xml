@@ -23,4 +23,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Rock your senses with this timeless signature vibe list." />
+
+    <ProgressBar
+        android:id="@+id/details_loader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:minHeight="40dp"
+        android:minWidth="40dp"
+        android:visibility="gone" />
 </LinearLayout>

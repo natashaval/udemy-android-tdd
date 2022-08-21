@@ -45,6 +45,7 @@ class PlaylistDetailFragment : Fragment() {
     viewModel.getPlaylistDetails(id)
 
     observeLiveData()
+    observeLoader()
   }
 
   private fun observeLiveData() {
@@ -61,6 +62,15 @@ class PlaylistDetailFragment : Fragment() {
     playlistDetails?.let {
       binding.playlistName.text = it.name
       binding.playlistDetails.text = it.details
+    }
+  }
+
+  private fun observeLoader() {
+    viewModel.loader.observe(this as LifecycleOwner) { loading ->
+      when (loading) {
+        true -> binding.detailsLoader.visibility = View.VISIBLE
+        else -> binding.detailsLoader.visibility = View.GONE
+      }
     }
   }
 
