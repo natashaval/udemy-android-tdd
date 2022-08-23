@@ -13,7 +13,7 @@ class CicdActivity : AppCompatActivity() {
     setContentView(binding.root)
 
     binding.helloButton.setOnClickListener {
-      binding.greetingTextView.text = "Hello ${binding.nameEditText.text}"
+      binding.greetingTextView.text = "Hello ${binding.nameEditText.text}! How are you today?"
     }
   }
 }
