@@ -12,3 +12,8 @@ Don't forget to:
 
 ## Screenshots
 ![playlists_home](image/playlists_home.png)
+
+---
+# Quick Android Example Project
+
+## Udemy Master CI/CD for Android Developers
