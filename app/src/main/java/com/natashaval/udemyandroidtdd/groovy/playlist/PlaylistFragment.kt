@@ -60,7 +60,7 @@ class PlaylistFragment : Fragment() {
       if (playlists.isSuccess && playlists.getOrNull() != null) {
         setupList(binding.playlistsList, playlists.getOrNull()!!)
       } else {
-        Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT)
+        Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT).show()
       }
     }
   }
