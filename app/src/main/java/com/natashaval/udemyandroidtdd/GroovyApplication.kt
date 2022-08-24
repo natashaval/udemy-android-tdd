@@ -12,7 +12,7 @@ class GroovyApplication : Application() {
     super.onCreate()
     AppCenter.start(
       this,
-      "2cc2a2e6-a2fc-46b6-a658-b8996dce7935",
+      BuildConfig.APP_CENTER_SECRET,
       Analytics::class.java,
       Crashes::class.java
     )
