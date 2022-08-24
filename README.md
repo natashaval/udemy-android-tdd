@@ -19,3 +19,4 @@ Don't forget to:
 ---
 # Udemy Master CI/CD for Android Developers
 [ALP 22 : Master CI/CD for Android Developers](https://www.udemy.com/course/continuous-integration-and-continuous-delivery-for-android-developers/)
+[![Build status](https://build.appcenter.ms/v0.1/apps/a9a41954-316f-4bc5-9b8c-e4dc2c1124de/branches/dev/badge)](https://appcenter.ms)

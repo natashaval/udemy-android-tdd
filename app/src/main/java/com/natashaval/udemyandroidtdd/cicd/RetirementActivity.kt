@@ -24,6 +24,10 @@ class RetirementActivity : AppCompatActivity() {
       }
     })
 
+    binding.crashButton.setOnClickListener {
+      Crashes.generateTestCrash()
+    }
+
     binding.calculateButton.setOnClickListener {
       // Crashes.generateTestCrash()
       try {
