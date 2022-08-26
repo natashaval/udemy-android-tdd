@@ -5,7 +5,12 @@
 
 dev: [![Build status](https://build.appcenter.ms/v0.1/apps/f5c7f57c-3f4d-4b15-8485-28c8ea14d649/branches/dev/badge)](https://appcenter.ms)  
 test: [![Build status](https://build.appcenter.ms/v0.1/apps/f5c7f57c-3f4d-4b15-8485-28c8ea14d649/branches/test/badge)](https://appcenter.ms)  
-main: [![Build status](https://build.appcenter.ms/v0.1/apps/f5c7f57c-3f4d-4b15-8485-28c8ea14d649/branches/main/badge)](https://appcenter.ms)  
+main: [![Build status](https://build.appcenter.ms/v0.1/apps/f5c7f57c-3f4d-4b15-8485-28c8ea14d649/branches/main/badge)](https://appcenter.ms)
+
+How to run app center test:
+1. Right click on androidTest folder and Run all tests
+2. appcenter test run espresso --app "natashaval/udemy-android" --devices c7c852b4 --app-path "app/build/outputs/apk/debug/app-debug.apk" --test-series "test" --locale "en_US" --build-dir "app/build/outputs/apk/androidTest/debug"
+
 ---
 ## Udemy Android TDD Masterclass
 [ALP 22 : Android TDD Masterclass - Coroutines, Jetpack](https://www.udemy.com/course/android-11-tdd-masterclass/)
